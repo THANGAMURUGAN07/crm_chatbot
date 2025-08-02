@@ -16,10 +16,11 @@ app.use(express.static("public"));
 
 // ✅ MySQL DB
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "THANGAM123",
-  database: "chatbot_db"
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  ssl: { rejectUnauthorized: true }  // Required by Planetscale
 });
 db.connect(err => {
   if (err) console.error("❌ MySQL error:", err.message);
