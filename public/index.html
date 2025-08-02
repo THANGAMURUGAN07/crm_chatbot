@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🤖 CRM Bot</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="chat-wrapper" id="chat-wrapper">
+    <div class="chat-container">
+      <div class="header">
+        <img src="images/robot.png" alt="Bot Icon" class="header-icon"/>
+        <span class="header-title">Welcome to our Chatbot</span>
+      </div>
+
+      <div class="chat-frame">
+        <div class="messages-frame" id="messages-frame">
+          <div class="welcome-section">
+            <img src="images/welcome.jpg" id="welcome-image" alt="Welcome Bot" class="welcome-bot-image" />
+          </div>
+        </div>
+      </div>
+
+      <div class="entry-section">
+        <div class="entry-wrapper">
+          <input type="text" id="user-input" class="user-input" placeholder="Type a message..." />
+        </div>
+        <button id="send-button" class="send-button">
+          <img src="images/paper-plane.png" alt="Send" class="icon" />
+        </button>
+        <button id="voice-button" class="voice-button">
+          <img src="images/voice.png" alt="Voice" class="icon" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-toggle-button" id="chat-toggle-button">
+    <img src="images/robot.png" alt="Chat Toggle" class="toggle-icon" />
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
