@@ -6,6 +6,9 @@ import { ChatOllama } from "@langchain/community/chat_models/ollama";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
 import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
 import { ChatMessageHistory } from "langchain/stores/message/in_memory";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const app = express();
 const PORT = 3000;
@@ -17,11 +20,13 @@ app.use(express.static("public"));
 // ✅ MySQL DB
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
+  port: process.env.DB_PORT,       // add port
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  ssl: { rejectUnauthorized: true }  // Required by Planetscale
+  database: process.env.DB_NAME
 });
+console.log("Connecting to DB:", process.env.DB_HOST, process.env.DB_PORT, process.env.DB_USER, process.env.DB_NAME);
+
 db.connect(err => {
   if (err) console.error("❌ MySQL error:", err.message);
   else console.log("✅ Connected to chatbot_db");
@@ -135,7 +140,7 @@ app.post("/chat", async (req, res) => {
 
       // else assume it might be a customer
       context.lastCustomerName = name;
-      db.query("SELECT * FROM crm_records WHERE name LIKE ? LIMIT 1", [`%${name}%`], (err, results) => {
+      db.query("SELECT * FROM crm_records WHERE LOWER(name) LIKE LOWER(?) LIMIT 1", [`%${name}%`], (err, results) => {
         if (err || !results.length) return res.json({ response: `❌ Sorry, couldn't find customer "${name}".` });
         context.lastCustomerId = results[0].id;
         return res.json({ response: formatCustomerData(results[0]) });
