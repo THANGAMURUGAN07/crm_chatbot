@@ -89,7 +89,7 @@ function addMessage(content, type) {
 // ✅ Get bot reply
 async function getBotReply(message, mode) {
   try {
-    const response = await fetch("http://localhost:3000/chat", {
+    const response = await fetch("https://crmchatbot-production.up.railway.app/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message, sessionId: "default" }),
